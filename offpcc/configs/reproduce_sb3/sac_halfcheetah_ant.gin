@@ -1,0 +1,42 @@
+# ====================================================================================
+# gin macros
+# ====================================================================================
+
+hidden_dimensions = (400, 300)
+
+lr = 7.3e-4
+buffer_size = 300000
+batch_size = 256
+
+gamma = 0.98
+polyak = 0.98
+
+num_epochs = 100
+num_steps_per_epoch = 10000
+update_every = 64
+update_after = 10000
+num_test_episodes_per_epoch = 5
+
+# ====================================================================================
+# applying the parameters above to our codebase
+# ====================================================================================
+
+import offpcc.basics.run_fns
+import offpcc.basics.actors_and_critics
+import offpcc.algorithms.sac
+import offpcc.basics.replay_buffer
+
+offpcc.basics.actors_and_critics.make_MLP.hidden_dimensions = %hidden_dimensions
+
+offpcc.algorithms.sac.SAC.lr = %lr
+offpcc.algorithms.sac.SAC.gamma = %gamma
+offpcc.algorithms.sac.SAC.polyak = %polyak
+
+offpcc.basics.replay_buffer.ReplayBuffer.capacity = %buffer_size
+offpcc.basics.replay_buffer.ReplayBuffer.batch_size = %batch_size
+
+offpcc.basics.run_fns.train.num_epochs = %num_epochs
+offpcc.basics.run_fns.train.num_steps_per_epoch = %num_steps_per_epoch
+offpcc.basics.run_fns.train.update_every = %update_every
+offpcc.basics.run_fns.train.update_after = %update_after
+offpcc.basics.run_fns.train.num_test_episodes_per_epoch = %num_test_episodes_per_epoch
