@@ -1,0 +1,31 @@
+# ====================================================================================
+# gin macros
+# ====================================================================================
+
+capacity = 5000  # 1M / 200 = 5000
+batch_size = 10
+
+num_epochs = 200
+num_steps_per_epoch = 1000
+update_after = 10000
+num_test_episodes_per_epoch = 10
+
+recurrent_type = "rnn"
+
+# ====================================================================================
+# applying the parameters
+# ====================================================================================
+
+import offpcc.basics.replay_buffer_recurrent
+import offpcc.basics.run_fns
+import offpcc.basics.summarizer
+
+offpcc.basics.summarizer.Summarizer.recurrent_type = %recurrent_type
+
+offpcc.basics.replay_buffer_recurrent.RecurrentReplayBuffer.capacity = %capacity
+offpcc.basics.replay_buffer_recurrent.RecurrentReplayBuffer.batch_size = %batch_size
+
+offpcc.basics.run_fns.train.num_epochs = %num_epochs
+offpcc.basics.run_fns.train.num_steps_per_epoch = %num_steps_per_epoch
+offpcc.basics.run_fns.train.num_test_episodes_per_epoch = %num_test_episodes_per_epoch
+offpcc.basics.run_fns.train.update_after = %update_after
